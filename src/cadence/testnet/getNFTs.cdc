@@ -308,6 +308,17 @@ pub fun getBeam(owner: PublicAccount, id: UInt64): NFTData? {
         rawMetadata.insert(key: key, metadata![key])
     }
 
+    var mediaUrl: String? = nil
+    if metadata!["mediaUrl"]  != nil {
+        let metadataUrl = metadata!["mediaUrl"]!
+        let scheme = metadataUrl.slice(from: 0, upTo: 7)
+        if scheme == "ipfs://" {
+            mediaUrl = metadataUrl
+        } else {
+            mediaUrl = "ipfs://".concat(metadataUrl)
+        }
+    }
+
     return NFTData(
         contract: contract,
         id: nft!.id,
@@ -359,6 +370,17 @@ pub fun getCrave(owner: PublicAccount, id: UInt64): NFTData? {
     let rawMetadata: {String:String?} = {}
     for key in metadata!.keys {
         rawMetadata.insert(key: key, metadata![key])
+    }
+
+    var mediaUrl: String? = nil
+    if metadata!["mediaUrl"]  != nil {
+        let metadataUrl = metadata!["mediaUrl"]!
+        let scheme = metadataUrl.slice(from: 0, upTo: 7)
+        if scheme == "ipfs://" {
+            mediaUrl = metadataUrl
+        } else {
+            mediaUrl = "ipfs://".concat(metadataUrl)
+        }
     }
 
     return NFTData(
@@ -612,6 +634,17 @@ pub fun getKOTD(owner: PublicAccount, id: UInt64): NFTData? {
     if nft == nil { return nil }
 
     let metadata = KOTD.getCollectibleItemMetaData(collectibleItemID: nft!.data.collectibleItemID)
+
+    var mediaUrl: String? = nil
+    if metadata!["mediaUrl"]  != nil {
+        let metadataUrl = metadata!["mediaUrl"]!
+        let scheme = metadataUrl.slice(from: 0, upTo: 7)
+        if scheme == "ipfs://" {
+            mediaUrl = metadataUrl
+        } else {
+            mediaUrl = "ipfs://".concat(metadataUrl)
+        }
+    }
 
     var mediaUrl: String? = nil
     if metadata!["mediaUrl"]  != nil {
